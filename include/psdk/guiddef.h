@@ -31,6 +31,7 @@ typedef struct _GUID
 } GUID;
 #endif
 
+#ifndef __WATCOMC__ /* conflicts with h/nt/winnt.h */
 #ifndef DECLSPEC_SELECTANY
 #ifdef __clang__
 /* FIXME: http://llvm.org/bugs/show_bug.cgi?id=13778 */

@@ -84,12 +84,14 @@ cd ../reactos
 rm -f CMakeCache.txt
 
 if [ "x$WATCOM" != "x" ]; then
-      export CC=wcl386 -aa
+      export CC=wcl386
       export LINKER=wcl386
       export CXX=wcl386
+      export CFLAGS="-aa -oneatxl -bt=NT -l=NT"
+      export CXXFLAGS="-bt=NT -l=NT"
       export ASM=wasm
       export RC=wrc
-      cmake -G "$CMAKE_GENERATOR" -DENABLE_CCACHE=0 -DCMAKE_CROSSCOMPILING=1 -DCMAKE_TOOLCHAIN_FILE=toolchain-watcom.cmake -DARCH=$ARCH -DREACTOS_BUILD_TOOLS_DIR="$REACTOS_BUILD_TOOLS_DIR" $ROS_CMAKEOPTS "$REACTOS_SOURCE_DIR"
+      cmake -G "$CMAKE_GENERATOR" -DENABLE_CCACHE=0 -DCMAKE_CROSSCOMPILING=1 -DCMAKE_RC_COMPILER=wrc -DCMAKE_TOOLCHAIN_FILE=toolchain-watcom.cmake -DARCH=$ARCH -DREACTOS_BUILD_TOOLS_DIR="$REACTOS_BUILD_TOOLS_DIR" $ROS_CMAKEOPTS "$REACTOS_SOURCE_DIR"
 else
       cmake -G "$CMAKE_GENERATOR" -DENABLE_CCACHE=0 -DCMAKE_TOOLCHAIN_FILE=toolchain-gcc.cmake -DARCH=$ARCH -DREACTOS_BUILD_TOOLS_DIR="$REACTOS_BUILD_TOOLS_DIR" $ROS_CMAKEOPTS "$REACTOS_SOURCE_DIR"
 fi
