@@ -41,8 +41,6 @@ typedef struct _GUID
 #endif
 #endif
 #endif
-#endif
-#endif
 
 #ifndef EXTERN_C
 #ifdef __cplusplus
