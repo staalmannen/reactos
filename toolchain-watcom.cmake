@@ -14,9 +14,9 @@ set(CMAKE_SYSTEM_NAME Windows)
 set(CMAKE_SYSTEM_PROCESSOR "x86")
 set(WATCOM TRUE)
 
-# Which tools to use
-set(CMAKE_C_COMPILER wcl386 -aa)
-set(CMAKE_CXX_COMPILER wcl386)
+# Which tools to use. Specifically add win32 target to make sure
+set(CMAKE_C_COMPILER wcl386 -aa -bt=NT -l=NT)
+set(CMAKE_CXX_COMPILER wcl386 -bt=NT -l=NT)
 set(CMAKE_ASM_COMPILER wasm)
 set(CMAKE_ASM_COMPILER_ID "WATCOM")
 

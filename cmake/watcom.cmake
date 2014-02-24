@@ -5,7 +5,7 @@ endif()
 
 add_definitions(-dinline=__inline -d__STDC__=1)
 
-add_compile_flags("-aa -ze -fp5 -oneatxl -mf -bt=NT")
+add_compile_flags("-aa -ze -fp5 -oneatxl -mf -bt=NT -l=NT")
 
 
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ")
