@@ -1,4 +1,3 @@
-
 cmake_minimum_required(VERSION 2.6)
 
 if(POLICY CMP0017)
@@ -59,24 +58,24 @@ if(NOT CMAKE_CROSSCOMPILING)
 
     add_definitions(-DTARGET_${ARCH})
 
-    if(MSVC)
+    if(MSVC OR WATCOM)
         if(ARCH STREQUAL "i386")
             add_definitions(/D_X86_ /DWIN32 /D_WINDOWS)
         endif()
-        add_definitions(/Dinline=__inline)
+        add_definitions(/Dinline=__inline) 
     else()
         add_compile_flags("-fshort-wchar -Wno-multichar")
     endif()
 
     include_directories(include/host)
 
-    if(NOT MSVC)
-        add_subdirectory(dll/win32/dbghelp)
+    if(NOT MSVC AND NOT WATCOM)
+       add_subdirectory(dll/win32/dbghelp)
     endif()
     add_subdirectory(tools)
     add_subdirectory(lib)
 
-    if(NOT MSVC)
+    if(NOT MSVC AND NOT WATCOM)
         export(TARGETS bin2c widl gendib cabman cdmake mkhive obj2bin spec2def geninc rsym mkshelllink FILE ${CMAKE_BINARY_DIR}/ImportExecutables.cmake NAMESPACE native- )
     else()
         export(TARGETS bin2c widl gendib cabman cdmake mkhive obj2bin spec2def geninc mkshelllink FILE ${CMAKE_BINARY_DIR}/ImportExecutables.cmake NAMESPACE native- )
@@ -181,6 +180,8 @@ else()
     # Compiler specific definitions and macros
     if(MSVC)
         include(cmake/msvc.cmake)
+    elseif(WATCOM)
+	include(cmake/watcom.cmake)
     else()
         include(cmake/gcc.cmake)
     endif()

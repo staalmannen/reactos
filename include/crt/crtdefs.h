@@ -134,7 +134,7 @@
 #endif
 
 #ifndef _CRT_ALIGN
-#if defined (__midl) || defined(__WIDL__)
+#if defined (__midl) || defined(__WIDL__) || defined(__WATCOMC__)
 #define _CRT_ALIGN(x)
 #elif defined(_MSC_VER)
 #define _CRT_ALIGN(x) __declspec(align(x))

@@ -23,7 +23,7 @@ else()
 
     add_definitions(-D__NO_CTYPE_INLINES -DINFLIB_HOST)
     add_library(inflibhost ${SOURCE})
-    if(NOT MSVC)
+    if (NOT MSVC AND NOT WATCOM)
         add_target_compile_flags(inflibhost "-Wpointer-arith -Wwrite-strings")
     endif()
     target_link_libraries(inflibhost unicode)

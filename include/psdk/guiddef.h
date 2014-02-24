@@ -39,6 +39,9 @@ typedef struct _GUID
 #define DECLSPEC_SELECTANY __declspec(selectany)
 #endif
 #endif
+#endif
+#endif
+#endif
 
 #ifndef EXTERN_C
 #ifdef __cplusplus
