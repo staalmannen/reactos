@@ -118,7 +118,7 @@
 
 /* Define if we have __va_copy */
 #define HAVE___VA_COPY 1
-
+// 
 /* Define to the address where bug reports for this package should be sent. */
 #define PACKAGE_BUGREPORT "ros-dev@reactos.org"
 
@@ -144,6 +144,12 @@
    `char[]'. */
 #define YYTEXT_POINTER 1
 
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) || defined(__WATCOMC__)
 #define inline __inline
 #endif
+
+#if defined(__WATCOMC__)
+#define __attribute__(x)  /*nothing */
+#endif
+
+

@@ -515,7 +515,12 @@ int main(int argc,char *argv[])
 
   now = time(NULL);
 
+  #if defined(__WATCOMC__)
+/* as far as I have seen, the watcom libraries lack getopt_long*/
+  while((optc = getopt(argc, argv, short_options)) != EOF) {
+  #else
   while((optc = getopt_long(argc, argv, short_options, long_options, &opti)) != EOF) {
+  #endif
     switch(optc) {
     case DLLDATA_OPTION:
       dlldata_name = xstrdup(optarg);
