@@ -16,6 +16,10 @@
 
 //#define DISPLAY_DETECTED_UNICODE
 
+#ifdef __WATCOMC__
+#include <string>
+#endif
+
 using namespace std;
 
 class utf_converter

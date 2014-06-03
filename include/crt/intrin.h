@@ -6,6 +6,8 @@
 #  include "mingw32/intrin.h"
 #elif defined(_MSC_VER)
 #  include "msc/intrin.h"
+#elif defined(__WATCOMC__)
+#  include "watcom/intrin.h"
 #else
 #  error Please implement intrinsics for your target compiler
 #endif

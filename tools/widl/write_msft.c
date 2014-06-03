@@ -74,7 +74,11 @@ typedef struct tagMSFT_ImpFile {
     int guid;
     LCID lcid;
     int version;
+#if defined(__WATCOMC__)
+    char filename[1];
+#else
     char filename[0]; /* preceded by two bytes of encoded (length << 2) + flags in the low two bits. */
+#endif
 } MSFT_ImpFile;
 
 typedef struct _msft_typelib_t

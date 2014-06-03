@@ -8,7 +8,7 @@
 #include <stdarg.h>
 
 /* gcc defaults to cdecl */
-#if defined(__GNUC__)
+#if defined(__GNUC__) || defined(__WATCOMC__)
 #undef __cdecl
 #define __cdecl
 #endif

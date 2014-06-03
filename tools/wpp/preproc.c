@@ -16,6 +16,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
  */
 
+
 #include "config.h"
 #include "wine/port.h"
 
@@ -682,8 +683,7 @@ int pp_get_if_depth(void)
 	return if_stack_idx;
 }
 
-/* #define WANT_NEAR_INDICATION */
-
+/*#define WANT_NEAR_INDICATION */
 static void generic_msg(const char *s, const char *t, const char *n, va_list ap)
 {
 	fprintf(stderr, "%s:%d:%d: %s: ", pp_status.input ? pp_status.input : "stdin",
@@ -707,16 +707,17 @@ end:
 	fprintf(stderr, "\n");
 }
 
-static void wpp_default_error(const char *file, int line, int col, const char *near, const char *msg, va_list ap)
+static void wpp_default_error(const char *file, int line, int col, const char *n, const char *msg, va_list ap)
 {
-	generic_msg(msg, "Error", near, ap);
+	generic_msg(msg, "Error", n, ap);
 	exit(1);
 }
 
-static void wpp_default_warning(const char *file, int line, int col, const char *near, const char *msg, va_list ap)
+static void wpp_default_warning(const char *file, int line, int col, const char *n, const char *msg, va_list ap)
 {
-	generic_msg(msg, "Warning", near, ap);
+	generic_msg(msg, "Warning", n, ap);
 }
+
 
 static const struct wpp_callbacks default_callbacks =
 {

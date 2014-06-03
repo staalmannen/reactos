@@ -126,7 +126,11 @@ typedef struct _SEP_AUDIT_POLICY_CATEGORIES
 
 typedef struct _SEP_AUDIT_POLICY_OVERLAY
 {
+#if defined(__WATCOMC__)
+    ULONGLONG PolicyBits:16;
+#else  
     ULONGLONG PolicyBits:36;
+#endif
     ULONGLONG SetBit:1;
 } SEP_AUDIT_POLICY_OVERLAY, *PSEP_AUDIT_POLICY_OVERLAY;
 

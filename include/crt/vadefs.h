@@ -48,7 +48,7 @@ extern "C" {
 #define _VA_LIST_DEFINED
 #if defined(__GNUC__)
   typedef __gnuc_va_list va_list;
-#elif defined(_MSC_VER)
+#elif defined(_MSC_VER) || defined(__WATCOMC__)
   typedef char *  va_list;
 #endif
 #endif

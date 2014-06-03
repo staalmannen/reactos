@@ -1,6 +1,11 @@
 #undef __MSVCRT__
 #include <psdk/ntverp.h>
 
+#if defined(__WATCOMC__)
+#define _INC_ERRNO 1 /* for an annoying reason, crt/errno.h messes with enum in arc/arc.h */
+
+#endif
+
 /* DDK/IFS/NDK Headers */
 #include <excpt.h>
 #include <setjmp.h>
@@ -66,6 +71,9 @@ typedef struct
 #if defined(_MSC_VER)
 #pragma section(".asmdef")
 __declspec(allocate(".asmdef"))
+#elif defined(__WATCOMC__)
+#define seg_name ".asmdef"
+#pragma data_seg ( seg_name );
 #elif defined(__GNUC__)
 __attribute__ ((section(".asmdef")))
 #else
@@ -91,4 +99,9 @@ ASMGENDATA Table[] =
     /* End of list */
     {TYPE_END, "", 0}
 };
+
+#if defined(__WATCOMC__) /* to build a dll with watcom, exports must be explicit */
+ASMGENDATA __export genincdataTable[];
+#endif
+
 

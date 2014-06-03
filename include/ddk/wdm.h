@@ -22,6 +22,11 @@
  */
 #pragma once
 
+#ifdef __WATCOMC__ /* temporary hacks */
+#define _M_IX86 1
+#define _NTSYSTEM_ 1
+#endif
+
 #ifndef _WDMDDK_
 #define _WDMDDK_
 

@@ -1063,7 +1063,11 @@
 #define HAVE_UNISTD_H 1
 
 /* Define to 1 if you have the `usleep' function. */
+#if defined(__WATCOMC__)
+#define HAVE_USLEEP 1
+#else
 /* #undef HAVE_USLEEP */
+#endif
 
 /* Define to 1 if you have the <utime.h> header file. */
 #define HAVE_UTIME_H 1

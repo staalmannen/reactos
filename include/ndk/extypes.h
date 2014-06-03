@@ -46,6 +46,8 @@ extern "C" {
 #define __ALIGNED(n)    __attribute__((aligned (n)))
 #elif defined(_MSC_VER)
 #define __ALIGNED(n)    __declspec(align(n))
+#elif defined(__WATCOMC__)
+#define __ALIGNED(n) /* nothing - a proper __declspec present? */
 #else
 #error __ALIGNED not defined for your compiler!
 #endif

@@ -26,7 +26,7 @@ set USE_VSCMD=0
 :: Detect presence of cmake
 cmd /c cmake --version 2>&1 | find "cmake version" > NUL || goto cmake_notfound
 
-:: Detect build environment (MinGW, VS, WDK, ...)
+:: Detect build environment (MinGW, VS, WDK, Wmake ...)
 if defined ROS_ARCH (
     echo Detected RosBE for %ROS_ARCH%
     set BUILD_ENVIRONMENT=MinGW
@@ -43,7 +43,17 @@ if defined ROS_ARCH (
     ) else (
         set CMAKE_GENERATOR="Ninja"
     )
-
+) else if defined WATCOM (
+    :: Default to i386 at the moment
+    :: Explicitly add some other stuff
+    set ARCH=i386
+    set BUILD_ENVIRONMENT=Watcom
+    set CMAKE_GENERATOR="Watcom WMake"
+    set CC=wcl386
+    set LINKER=wcl386
+    set CXX=wcl386
+    set ASM=wasm
+    set RC=wrc
 ) else if defined VCINSTALLDIR (
     :: VS command prompt does not put this in environment vars
     cl 2>&1 | find "x86" > NUL && set ARCH=i386
@@ -163,13 +173,15 @@ if "%BUILD_ENVIRONMENT%" == "MinGW" (
     cmake -G %CMAKE_GENERATOR% -DENABLE_CCACHE:BOOL=0 -DCMAKE_TOOLCHAIN_FILE:FILEPATH=toolchain-gcc.cmake -DARCH:STRING=%ARCH% -DREACTOS_BUILD_TOOLS_DIR:PATH="%REACTOS_BUILD_TOOLS_DIR%" "%REACTOS_SOURCE_DIR%"
 ) else if "%BUILD_ENVIRONMENT%" == "Clang" (
     cmake -G %CMAKE_GENERATOR% -DENABLE_CCACHE:BOOL=0 -DCMAKE_TOOLCHAIN_FILE:FILEPATH=toolchain-clang.cmake -DARCH:STRING=%ARCH% -DREACTOS_BUILD_TOOLS_DIR:PATH="%REACTOS_BUILD_TOOLS_DIR%" "%REACTOS_SOURCE_DIR%"
+) else if "%BUILD_ENVIRONMENT%" == "Watcom" ( 
+    cmake -G %CMAKE_GENERATOR% -DCMAKE_TOOLCHAIN_FILE:FILEPATH=toolchain-watcom.cmake -DARCH=%ARCH% -DREACTOS_BUILD_TOOLS_DIR:PATH="%REACTOS_BUILD_TOOLS_DIR%" "%REACTOS_SOURCE_DIR%"
 ) else (
     cmake -G %CMAKE_GENERATOR% -DCMAKE_TOOLCHAIN_FILE:FILEPATH=toolchain-msvc.cmake -DARCH:STRING=%ARCH% -DREACTOS_BUILD_TOOLS_DIR:PATH="%REACTOS_BUILD_TOOLS_DIR%" "%REACTOS_SOURCE_DIR%"
 )
 
 cd..
 
-echo Configure script complete^^! Enter directories and execute appropriate build commands (ex: ninja, make, nmake, etc...).
+echo Configure script complete^^! Enter directories and execute appropriate build commands (ex: ninja, make, nmake, wmake, etc...).
 exit /b
 
 :cmake_notfound

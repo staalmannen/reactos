@@ -247,7 +247,11 @@ typedef struct _MEMORY_FRAME_INFORMATION
     ULONGLONG ListDescription:3;
     ULONGLONG Reserved0:1;
     ULONGLONG Pinned:1;
+#if defined(__WATCOMC__)
+    ULONGLONG DontUse:16;
+#else
     ULONGLONG DontUse:48;
+#endif
     ULONGLONG Priority:3;
     ULONGLONG Reserved:4;
 } MEMORY_FRAME_INFORMATION, *PMEMORY_FRAME_INFORMATION;
@@ -255,21 +259,33 @@ typedef struct _MEMORY_FRAME_INFORMATION
 typedef struct _FILEOFFSET_INFORMATION
 {
     ULONGLONG DontUse:9;
+#if defined(__WATCOMC__)
+    ULONGLONG Offset:16;
+#else
     ULONGLONG Offset:48;
+#endif
     ULONGLONG Reserved:7;
 } FILEOFFSET_INFORMATION, *PFILEOFFSET_INFORMATION;
 
 typedef struct _PAGEDIR_INFORMATION
 {
     ULONGLONG DontUse:9;
+#if defined(__WATCOMC__)
+    ULONGLONG PageDirectoryBase:16;
+#else
     ULONGLONG PageDirectoryBase:48;
+#endif
     ULONGLONG Reserved:7;
 } PAGEDIR_INFORMATION, *PPAGEDIR_INFORMATION;
 
 typedef struct _UNIQUE_PROCESS_INFORMATION
 {
     ULONGLONG DontUse:9;
+#if defined(__WATCOMC__)
+    ULONGLONG UniqueProcessKey:16;    
+#else
     ULONGLONG UniqueProcessKey:48;
+#endif
     ULONGLONG Reserved:7;
 } UNIQUE_PROCESS_INFORMATION, *PUNIQUE_PROCESS_INFORMATION;
 

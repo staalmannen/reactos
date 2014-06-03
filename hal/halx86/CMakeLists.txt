@@ -14,7 +14,7 @@ function(add_hal _halname)
     spec2def(${_halname}.dll ../hal.spec ADD_IMPORTLIB)
 
     # Create the actual target
-    if(NOT MSVC)
+    if(NOT MSVC AND NOT WATCOM)
         foreach(_component ${_haldata_COMPONENTS})
             list(APPEND _haldata_SOURCES "$<TARGET_OBJECTS:lib_hal_${_component}>")
         endforeach()

@@ -8,6 +8,11 @@
 
 #include <crtdefs.h>
 
+#if defined(__WATCOMC__)
+#define __restrict__ /* nothing */
+#define __CRT_INLINE __inline
+#endif
+
 #define __need___va_list
 #include <stdarg.h>
 

@@ -19,8 +19,13 @@
  */
 
 #pragma once
-
+#ifndef _EVNTPROV_ /* to make sure that the header is just used once */
 #define _EVNTPROV_
+
+#if defined(__WATCOMC__)
+#define __attribute__(x) /* nothing */
+#define __inline__ __inline
+#endif
 
 #ifndef EVNTAPI
 #ifndef MIDL_PASS
@@ -356,3 +361,6 @@ EventDescOrKeyword(
 #ifdef __cplusplus
 }
 #endif
+
+#endif /* _EVNTPROV_ */
+

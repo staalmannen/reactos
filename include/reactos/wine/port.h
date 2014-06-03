@@ -179,6 +179,8 @@ static inline float __port_nan(void)
 # define DECL_GLOBAL_CONSTRUCTOR(func) \
     static void func(void) __attribute__((constructor)); \
     static void func(void)
+#elif defined(__WATCOMC__)
+# define DECL_GLOBAL_CONSTRUCTOR(func) /* nothing */
 #elif defined(__i386__)
 # define DECL_GLOBAL_CONSTRUCTOR(func) \
     static void __dummy_init_##func(void) { \
@@ -311,7 +313,7 @@ int strcasecmp(const char *str1, const char *str2);
 # endif
 #endif /* !defined(HAVE_STRCASECMP) */
 
-#if !defined(HAVE_USLEEP) && !defined(__CYGWIN__)
+#if !defined(HAVE_USLEEP) && !defined(__CYGWIN__) && !defined(__WATCOMC__)
 int usleep (unsigned int useconds);
 #endif /* !defined(HAVE_USLEEP) */
 

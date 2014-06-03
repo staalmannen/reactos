@@ -80,7 +80,11 @@ typedef struct _LNK_LOCATOR_INFO
     uint32_t LocalBasePathnameOffset;
     uint32_t NetworkVolumeInfoOffset;
     uint32_t RemainingPathnameOffset;
-    char Data[0];
+    #if defined(__WATCOMC__)
+      char Data[1];
+    #else
+      char Data[0];
+    #endif
 } LNK_LOCATOR_INFO;
 
 typedef struct _LNK_LOCAL_VOLUME_INFO
@@ -89,7 +93,11 @@ typedef struct _LNK_LOCAL_VOLUME_INFO
     uint32_t VolumeType; /* See GetDriveType */
     uint32_t SerialNumber;
     uint32_t VolumeNameOffset;
-    char VolumeLabel[0];
+    #if defined(__WATCOMC__)
+      char VolumeLabel[1];
+    #else
+      char VolumeLabel[0];
+    #endif
 } LNK_LOCAL_VOLUME_INFO;
 
 #define PT_GUID		0x1F
@@ -106,7 +114,11 @@ typedef struct _ID_LIST_FILE
     uint16_t uFileDate;
     uint16_t uFileTime;
     uint16_t uFileAttribs;
-    char szName[0];
+    #if defined (__WATCOMC__)
+      char szName[1];
+    #else
+      char szName[0];
+    #endif
 } ID_LIST_FILE;
 
 typedef struct _ID_LIST_GUID

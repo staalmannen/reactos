@@ -235,7 +235,11 @@ extern "C" {
 
 /* Done the same way as in windef.h for now */
 #define DECLSPEC_IMPORT __declspec(dllimport)
+#if defined(__WATCOMC__)
+#define DECLSPEC_NORETURN /* nothing */
+#else
 #define DECLSPEC_NORETURN __declspec(noreturn)
+#endif
 
 #ifndef DECLSPEC_ADDRSAFE
 #if defined(_MSC_VER) && (defined(_M_ALPHA) || defined(_M_AXP64))

@@ -8,7 +8,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#if defined __WATCOMC__
+#include <unistd.h>
+#else
 #include <getopt.h>
+#endif
 
 #include "util.h"
 #include "compat.h"

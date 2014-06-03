@@ -4,7 +4,7 @@ add_library(genincdata SHARED genincdata.c)
 set_entrypoint(genincdata 0)
 add_dependencies(genincdata bugcodes)
 
-if(MSVC)
+if(MSVC OR WATCOM)
     set(OPT_MS "-ms")
 else()
     set(OPT_MS "")

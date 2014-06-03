@@ -12,6 +12,11 @@ if(MSVC)
     list(APPEND SOURCE getopt.c)
 endif()
 
+if(WATCOM)
+    add_compile_flags("-aa")
+    list(APPEND SOURCE getopt.c)
+endif()
+
 list(APPEND SOURCE
     client.c
     expr.c

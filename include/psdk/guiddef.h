@@ -31,8 +31,10 @@ typedef struct _GUID
 } GUID;
 #endif
 
+#ifndef __WATCOMC__ /* conflicts with h/nt/winnt.h */
 #ifndef DECLSPEC_SELECTANY
 #define DECLSPEC_SELECTANY __declspec(selectany)
+#endif
 #endif
 
 #ifndef EXTERN_C

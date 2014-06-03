@@ -3,6 +3,10 @@
 
 typedef ULONG ARC_STATUS;
 
+#if defined(__WATCOMC__)
+#pragma enum int 
+#endif
+
 typedef enum _ARC_CODES
 {
     ESUCCESS,
